@@ -48,11 +48,11 @@ const AppNavbar = () => {
       </div>
       <div className="navbar_block">
         <ul className="navbar_list">
-          <li className="navbar_item"><NavLink to="/browser">Accueil</NavLink></li>
-          <li className="navbar_item"><NavLink to="/browser/film">Films</NavLink></li>
-          <li className="navbar_item"><NavLink to="/browser/series">Séries</NavLink></li>
-          <li className="navbar_item"><NavLink to="/browser/categories">Catégories</NavLink></li>
-          <li className="navbar_item navbar_item_account"><NavLink to="/account/"><Avatar id={user.avatar_id} /></NavLink></li>
+          <li className="navbar_item"><NavLink to="/browser" activeClassName="active">Accueil</NavLink></li>
+          <li className="navbar_item"><NavLink to="/film" activeClassName="active">Films</NavLink></li>
+          <li className="navbar_item"><NavLink to="/series" activeClassName="active">Séries</NavLink></li>
+          <li className="navbar_item"><NavLink to="/categories" activeClassName="active">Catégories</NavLink></li>
+          <li className="navbar_item_account"><NavLink to="/account/"><Avatar id={user.avatar_id} /></NavLink></li>
         </ul>
       </div>
     </div>
