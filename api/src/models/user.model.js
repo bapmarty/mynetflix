@@ -22,7 +22,7 @@ User.create = (newUser, result) => {
 }
 
 User.getById = (uid, result) => {
-  bdd.query("SELECT uid, lastname, firstname, mail, phone_number FROM users WHERE uid = ?", uid, (err, res) => {
+  bdd.query("SELECT uid, lastname, firstname, mail, phone_number, avatar_id FROM users WHERE uid = ?", uid, (err, res) => {
     if (err) {
       result(err, null);
       return ;
