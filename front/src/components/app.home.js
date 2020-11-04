@@ -7,7 +7,11 @@ const home = () => {
     <>
     <AppNavbar />
     <div className="home">
-      HOME
+      <p className="alert">
+        Website in development !<br />
+        don't panic and still tuned on 
+        <a href="https://instagram.com/baptistemrrt/">Instagram</a>
+      </p>
     </div>
     </>
   );
