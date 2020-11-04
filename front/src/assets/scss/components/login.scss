@@ -1,0 +1,128 @@
+@import "../variables.scss";
+
+.form {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../images/bg_img.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-color: #0002;
+  width: 100%;
+  height: 100%;
+  .content-form {
+    position: absolute;
+    display: flex;
+    padding: 50px;
+    border-radius: 5px;
+    background-color: #000000CC;
+    justify-content: center;
+    div.block {
+      margin: 0px;
+      img {
+        width: 356px;
+        margin-right: 50px;
+      }
+      h3 {
+        font-size: 2rem;
+      }
+      form {
+        div.error {
+          margin-top: 20px;
+          padding: 10px 15px;
+          background-color: $red;
+          border-radius: 3px;
+        }
+        div.input-block {
+          position: relative;
+          margin: 15px 0;
+          padding: 15px 0 0;
+          input {
+            width: 300px;
+            background-color: #232323;
+            border: 0;
+            border-bottom: 2px solid #EEE;
+            padding: 8px 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #FFF;
+            transition: border-color 0.2s;
+            &::placeholder {
+              color: transparent;
+            }
+            &:placeholder-shown ~ label {
+              font-size: 1.3rem;
+              cursor: text;
+              top: 20px;
+            }
+          }
+          label {
+            position: absolute;
+            top: -3px;
+            left: 3px;
+            display: block;
+            transition: .2s;
+            font-size: 1rem;
+            color: #FFF;
+          }
+          input:focus {
+            ~ label {
+              position: absolute;
+              top: -3px;
+              left: 0px;
+              display: block;
+              transition: .2s;
+              color: $red;
+              font-size: 1rem;
+            }
+            //padding-bottom: 6px;
+            border-bottom: 3px solid $red;
+          }
+        }
+
+        div {
+          input[type="submit"], a {
+            margin: 25px 0 0 0;
+            padding: 5px 0;
+            width: 100%;
+            background-color: $gray;
+            border: 0;
+            color: #EEE;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 3px;
+            transition: background-color .2s ease-in-out;
+          }
+          input[type="submit"]:hover {
+            background-color: $red;
+            transition: background-color .2s ease-in-out;
+          }
+          a {
+            display: block;
+            background-color: $red;
+            text-align: center;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 981px) {
+  .form {
+    .content-form {
+      display: flex;
+      flex-direction: column;
+      div.block {
+        img {
+          display: block;
+          width: 95%;
+          margin: 0 auto 50px;
+        }
+      }
+    }
+  }
+}

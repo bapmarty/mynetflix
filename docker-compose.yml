@@ -1,0 +1,71 @@
+version: '3.5'
+
+# mysql phpmyqdmin react php
+services:
+  db:
+    image: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    networks:
+      - mynetflix
+
+  pma:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
+    ports:
+      - 8081:80
+    environment:
+      PMA_HOST: db
+    networks:
+      - mynetflix
+
+  front:
+    build: ./front/
+    restart: always
+    ports:
+      - 80:${MYNETFLIX_FRONT_PORT}
+    volumes:
+      - ./front/:/usr/src/
+      - ./front/package.json:/usr/src/package.json
+      - /usr/src/node_modules
+    environment: 
+      NODE_ENV: 'development'
+      REACT_APP_API_HOST: ${REACT_APP_API_HOST}
+    networks:
+      - mynetflix
+
+  api:
+    build: ./api/
+    ports:
+      - ${MYNETFLIX_API_PORT}:${MYNETFLIX_API_PORT}
+    depends_on:
+      - db
+    volumes:
+      - ./api/:/usr/src/
+      - ./api/package.json:/usr/src/package.json
+      - /usr/src/node_modules
+    environment:
+      NODE_ENV: development
+      MYNETFLIX_API_PORT: ${MYNETFLIX_API_PORT}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_DB_HOST: ${MYSQL_DB_HOST}
+      SECRET_TOKEN_JWT: ${SECRET_TOKEN_JWT}
+    networks:
+      - mynetflix
+
+networks:
+  mynetflix:
+    name: mynetflix
+
+volumes:
+  db_data: {}
