@@ -25,6 +25,42 @@
         width: 356px;
         margin-right: 50px;
       }
+      p.alert {
+        margin-top: 20px;
+        font-size: 1.3rem;
+        a {
+          position: relative;
+          margin: 0 0 0 5px;
+          font-size: 1.3rem;
+          color: #FFF;
+          text-decoration: none;
+          transition: color .2s ease-in-out;
+          &::before {
+            content: "";
+            position: absolute;
+            background-color: $red;
+            width: 0%;
+            height: 3px;
+            bottom: -5px;
+            border-radius: 2px;
+            transition: all .2s ease-in-out;
+          }
+          &:hover {
+            color: $red;
+            transition: color .2s ease-in-out;
+            &::before {
+              content: "";
+              position: absolute;
+              background-color: $red;
+              width: 100%;
+              height: 3px;
+              bottom: -5px;
+              border-radius: 2px;
+              transition: all .2s ease-in-out;
+            }
+          }
+        }
+      }
       h3 {
         font-size: 2rem;
       }
