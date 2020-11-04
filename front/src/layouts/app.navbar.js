@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import Cookies from "js-cookie";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faBars, faTimes} from '@fortawesome/free-solid-svg-icons';
 
 import Avatar from '../helpers/avatar';
 
@@ -12,6 +12,7 @@ import "../assets/scss/layouts/app.navbar.scss";
 
 const AppNavbar = () => {
   const [user, setUser] = useState({});
+  const [show, setShow] = useState("navbar");
   
   async function fetchData() {
     const cookie_uid = Cookies.get("uid");
@@ -36,9 +37,14 @@ const AppNavbar = () => {
   }, []);
 
   return (
-    <div className="navbar">
+    <div className={show}>
       <div className="navbar_logo">
         <img src={MyNetflixLogo} alt={"mynetflix logo"}/>
+        <div className="navbar_responsive">
+          <div className="responsive_button" onClick={() => {show === 'navbar' ? setShow('navbar open') : setShow('navbar')}}>
+            <FontAwesomeIcon icon={show === 'navbar' ? faBars : faTimes} />
+          </div>
+        </div>
       </div>
       <div className="navbar_search">
         <form>
@@ -46,7 +52,7 @@ const AppNavbar = () => {
           <input type="text" name="search" id="search" placeholder="Rechercher" autoComplete={"none"} />
         </form>
       </div>
-      <div className="navbar_block">
+      <div className="navbar_nav">
         <ul className="navbar_list">
           <li className="navbar_item"><NavLink to="/browser" activeClassName="active">Accueil</NavLink></li>
           <li className="navbar_item"><NavLink to="/film" activeClassName="active">Films</NavLink></li>
