@@ -1,0 +1,61 @@
+@import "../variables.scss";
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 50px 0;
+  .navbar_logo {
+    img {
+      display: block;
+      height: 75px;
+    }
+  }
+  .navbar_search {
+    margin-left: 50px;
+    display: flex;
+    justify-content: flex-start;
+    flex: 2;
+    label {
+      font-size: 1.3rem;
+      margin-right: 10px;
+    }
+    input {
+      background: transparent;
+      border: 0;
+      color: #EEE;
+      font-weight: 600;
+      font-size: 1.3rem;
+      &::placeholder {
+        font-weight: 600;
+        font-size: 1.3rem;
+      }
+    }
+  }
+  .navbar_block {
+    display: flex;
+    height: 80px;
+    align-items: center;
+    .navbar_list {
+      display: flex;
+      align-items: center;
+      list-style-type: none;
+      .navbar_item {
+        margin: 0 15px;
+        a {
+          font-size: 1.3rem;
+          color: #EEE;
+          text-decoration: none;
+        }
+      }
+      .navbar_item_account {
+        margin: 0 0 0 100px;
+        img {
+          width: 48px;
+          border-radius: 5px;
+        }
+
+      }
+    }
+  }
+}
