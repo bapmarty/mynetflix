@@ -12,10 +12,10 @@ function AppRoute() {
     <Switch>
         <PrivateRoute path="/account" component={Home} />
         <PrivateRoute path="/browser" component={Home} />
-        <PrivateRoute path="/browser/series" component={Home} />
-        <PrivateRoute path="/browser/film" component={Home} />
-        <PrivateRoute path="/browser/search?q=" component={Home} />
-        <PrivateRoute path="/browser/categories" component={Home} />
+        <PrivateRoute path="/series" component={Home} />
+        <PrivateRoute path="/film" component={Home} />
+        <PrivateRoute path="/search?q=" component={Home} />
+        <PrivateRoute path="/categories" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
 
