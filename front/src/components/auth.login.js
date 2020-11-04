@@ -47,6 +47,11 @@ const Login = () => {
       <div className={"content-form"}>
           <div className={"block"}>
             <img src={Logo} alt={"Logo MyNetflix"}/>
+            <p className="alert">
+              Website in development !<br />
+              Don't panic and still tuned on my
+              <a href="https://instagram.com/baptistemrrt/">Instagram</a>
+            </p>
           </div>
           <div className={"block"}>
             <h3>Se connecter</h3>

@@ -1,3 +1,45 @@
+@import "../variables.scss";
+
 .home {
-  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  .alert {
+    display: block;
+    text-align: center;
+    font-size: 2rem;
+    a {
+      position: relative;
+      margin: 0 0 0 10px;
+      font-size: 2rem;
+      color: #FFF;
+      text-decoration: none;
+      transition: color .2s ease-in-out;
+      &::before {
+        content: "";
+        position: absolute;
+        background-color: $red;
+        width: 0%;
+        height: 3px;
+        bottom: -5px;
+        border-radius: 2px;
+        transition: all .2s ease-in-out;
+      }
+      &:hover {
+        color: $red;
+        transition: color .2s ease-in-out;
+        &::before {
+          content: "";
+          position: absolute;
+          background-color: $red;
+          width: 100%;
+          height: 3px;
+          bottom: -5px;
+          border-radius: 2px;
+          transition: all .2s ease-in-out;
+        }
+      }
+    }
+  }
 }
