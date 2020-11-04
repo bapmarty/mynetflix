@@ -9,7 +9,7 @@ const home = () => {
     <div className="home">
       <p className="alert">
         Website in development !<br />
-        don't panic and still tuned on 
+        Don't panic and still tuned on 
         <a href="https://instagram.com/baptistemrrt/">Instagram</a>
       </p>
     </div>

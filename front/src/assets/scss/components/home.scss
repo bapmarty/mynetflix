@@ -1,8 +1,12 @@
 @import "../variables.scss";
 
 .home {
-  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
   .alert {
+    display: block;
     text-align: center;
     font-size: 2rem;
     a {
