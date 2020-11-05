@@ -18,7 +18,7 @@ const AppNavbar = () => {
     const cookie_uid = Cookies.get("uid");
     const cookie_token = Cookies.get("access_token");
     if (cookie_uid && cookie_token) {
-      var res = await fetch(`http://${process.env.REACT_APP_API_HOST}/user/${cookie_uid}`, {
+      var res = await fetch(`${process.env.REACT_APP_API_HOST}/user/${cookie_uid}`, {
         method: 'GET',
         headers: {
           'Accept': '*/*',

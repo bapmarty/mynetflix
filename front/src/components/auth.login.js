@@ -16,7 +16,7 @@ const Login = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://${process.env.REACT_APP_API_HOST}/auth/login`, {
+    fetch(`${process.env.REACT_APP_API_HOST}/auth/login`, {
       method: 'POST',
       headers: {
         'Accept': '*/*',
