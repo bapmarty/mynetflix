@@ -71,6 +71,13 @@
           background-color: $red;
           border-radius: 3px;
         }
+        div.success {
+          margin-top: 20px;
+          padding: 10px 15px;
+          background-color: green;
+          border-radius: 3px;
+        }
+
         div.input-block {
           position: relative;
           margin: 15px 0;
@@ -117,7 +124,7 @@
             border-bottom: 3px solid $red;
           }
         }
-
+        
         div {
           input[type="submit"], a {
             margin: 25px 0 0 0;
@@ -157,6 +164,13 @@
           display: block;
           width: 95%;
           margin: 0 auto 50px;
+        }
+        form {
+          div.input-block {
+            input {
+              width: 100%;
+            }
+          }
         }
       }
     }

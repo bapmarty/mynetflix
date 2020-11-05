@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import "../assets/scss/components/login.scss";
 
@@ -16,7 +17,9 @@ const Register = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_API_HOST}/auth/register`, {
+    var url = `${process.env.REACT_APP_API_HOST}/auth/register`;
+    console.log(url);
+    fetch(url, {
       method: 'POST',
       headers: {
         'Accept': '*/*',
@@ -32,6 +35,7 @@ const Register = () => {
     .then(res => res.json())
     .then(data => {
       if (data.uid) {
+        Cookies.set("register-success", "true");
         history.push('/login');
       }
       if (data.status === '400')

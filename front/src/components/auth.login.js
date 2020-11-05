@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 import "../assets/scss/components/login.scss";
 
 import Logo from '../assets/images/mynetflix.png';
+
+const NewLineText = (props) => {
+  const text = props.text;
+  return (
+    <>
+      {text}
+    </>
+  );
+}
 
 
 const Login = () => {
@@ -13,6 +22,7 @@ const Login = () => {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
+  const [success, setSuccess] = useState("");
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,6 +41,8 @@ const Login = () => {
     .then(res => res.json())
     .then(data => {
       if (data.uid) {
+        if (Cookies.get("register-success"))
+          Cookies.remove("register-success");
         Cookies.set('uid', data.uid);
         Cookies.set('access_token', data.token);
         history.push('/browser');
@@ -41,6 +53,12 @@ const Login = () => {
         setErr("Mot de passe incorrect !");
     });
   }
+
+  useEffect(() => {
+    if (Cookies.get("register-success") === "true") {
+      setSuccess("Inscription complète !\nConnectez-vous pour finaliser votre compte.");
+    }
+  }, []);
 
   return (
     <div className={"form"}>
@@ -57,6 +75,7 @@ const Login = () => {
             <h3>Se connecter</h3>
             <form onSubmit={handleSubmit}>
               {err ? (<div className="error">{err}</div>) : (<></>)}
+              {success ? (<div className="success backlines"><NewLineText text={success} /></div>) : (<></>)}
               <div>
                 <div className="input-block">
                   <input name={"mail"} type="mail" id="mail" name="mail" onChange={e => setMail(e.target.value)} value={mail} placeholder={"Adresse mail"} autoComplete={"false"} required />
