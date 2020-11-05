@@ -4,7 +4,7 @@ const Auth = {
   
   getAuth() {
     if (Cookies.get('uid') && Cookies.get('access_token')) {
-      fetch(`http://${process.env.REACT_APP_API_HOST}/user/${Cookies.get('uid')}`, {
+      fetch(`${process.env.REACT_APP_API_HOST}/user/${Cookies.get('uid')}`, {
           method: 'GET',
           headers: {
             'Accept': '*/*',

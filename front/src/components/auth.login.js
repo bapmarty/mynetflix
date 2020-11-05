@@ -16,7 +16,7 @@ const Login = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://${process.env.REACT_APP_API_HOST}/auth/login`, {
+    fetch(`${process.env.REACT_APP_API_HOST}/auth/login`, {
       method: 'POST',
       headers: {
         'Accept': '*/*',
@@ -60,11 +60,11 @@ const Login = () => {
               <div>
                 <div className="input-block">
                   <input name={"mail"} type="mail" id="mail" name="mail" onChange={e => setMail(e.target.value)} value={mail} placeholder={"Adresse mail"} autoComplete={"false"} required />
-                  <label for="mail">Adresse mail</label>
+                  <label htmlFor="mail">Adresse mail</label>
                 </div>
                 <div className="input-block">
                   <input name={"password"} type="password" id="password" name="password" onChange={e => setPassword(e.target.value)} value={password} placeholder={"Mot de passe"} autoComplete={"false"} required />
-                  <label for="password">Mot de passe</label>
+                  <label htmlFor="password">Mot de passe</label>
                 </div>
               </div>
               <div>

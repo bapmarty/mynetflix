@@ -16,7 +16,7 @@ const Register = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://${process.env.REACT_APP_API_HOST}/auth/register`, {
+    fetch(`${process.env.REACT_APP_API_HOST}/auth/register`, {
       method: 'POST',
       headers: {
         'Accept': '*/*',
@@ -56,15 +56,15 @@ const Register = () => {
               <div>
                 <div className="input-block">
                   <input name={"mail"} type="mail" id="mail" onChange={e => setMail(e.target.value)} value={mail} placeholder={"Adresse mail"} autoComplete={"false"} required />
-                  <label for="mail">Adresse mail</label>
+                  <label htmlFor="mail">Adresse mail</label>
                 </div>
                 <div className="input-block">
                   <input name={"password"} type="password" id="password" onChange={e => setPassword(e.target.value)} value={password} placeholder={"Mot de passe"} autoComplete={"false"} required />
-                  <label for="password">Mot de passe</label>
+                  <label htmlFor="password">Mot de passe</label>
                 </div>
                 <div className="input-block">
                   <input name={"password-repeat"} type="password" id="password-repeat" onChange={e => setPasswordRepeat(e.target.value)} value={passwordRepeat} placeholder={"Répétez le mot de passe"} autoComplete={"false"} required />
-                  <label for="password-repeat">Répétez le mot de passe</label>
+                  <label htmlFor="password-repeat">Répétez le mot de passe</label>
                 </div>
               </div>
               <div>
