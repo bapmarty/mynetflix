@@ -80,7 +80,7 @@
 
         div.input-block {
           position: relative;
-          margin: 15px 0;
+          margin: 25px 0;
           padding: 15px 0 0;
           input {
             width: 300px;
@@ -109,6 +109,24 @@
             transition: .2s;
             font-size: 1rem;
             color: #FFF;
+          }
+          span {
+            position: absolute;
+            left: 0;
+            display: inline;
+            bottom: -17px;
+            font-size: .8rem;
+            font-style: italic;
+            color: #EEE;
+            transition: color .3s ease-in-out;
+            &.not-great, &.not-equals {
+              color: $red;
+              transition: color .3s ease-in-out;
+            }
+            &.great, &.equals {
+              color: green;
+              transition: color .3s ease-in-out;
+            }
           }
           input:focus {
             ~ label {
