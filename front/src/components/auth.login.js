@@ -67,7 +67,7 @@ const Login = () => {
             <img src={Logo} alt={"Logo MyNetflix"}/>
             <p className="alert">
               Website in development !<br />
-              Don't panic and still tuned on my
+              Don't panic and stay tuned on my
               <a href="https://instagram.com/baptistemrrt/">Instagram</a>
             </p>
           </div>
