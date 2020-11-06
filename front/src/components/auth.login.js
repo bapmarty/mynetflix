@@ -76,6 +76,7 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
               {err ? (<div className="error">{err}</div>) : (<></>)}
               {success ? (<div className="success backlines"><NewLineText text={success} /></div>) : (<></>)}
+              {Cookies.get("logout") === "successful" ? (<div className="success">Vous avez été déconnecté !</div>) : (<></>)}
               <div>
                 <div className="input-block">
                   <input name={"mail"} type="mail" id="mail" name="mail" onChange={e => setMail(e.target.value)} value={mail} placeholder={"Adresse mail"} autoComplete={"false"} required />
