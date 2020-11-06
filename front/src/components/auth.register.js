@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import Password from '../helpers/password';
 
 import "../assets/scss/components/login.scss";
 
@@ -16,31 +18,35 @@ const Register = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_API_HOST}/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Accept': '*/*',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': "*"
-      },
-      body: JSON.stringify({
-        'mail': mail,
-        'password': password,
-        'passwordrepeat': passwordRepeat
+    if (Password.verify(password)) {
+      var url = `${process.env.REACT_APP_API_HOST}/auth/register`;
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': "*"
+        },
+        body: JSON.stringify({
+          'mail': mail,
+          'password': password,
+          'passwordrepeat': passwordRepeat
+        })
       })
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.uid) {
-        history.push('/login');
-      }
-      if (data.status === '400')
-        setErr("Les mots de passes ne correspondent pas !");
-      else if (data.status === '401')
-        setErr("L'adresse mail est déjà associée à un compte !");
-      else
-        setErr("Impossible de créer le compte !");
-    });
+      .then(res => res.json())
+      .then(data => {
+        if (data.uid) {
+          Cookies.set("register-success", "true");
+          history.push('/login');
+        }
+        if (data.status === '400')
+          setErr("Les mots de passes ne correspondent pas !");
+        else if (data.status === '401')
+          setErr("L'adresse mail est déjà associée à un compte !");
+        else
+          setErr("Impossible de créer le compte !");
+      });
+    }
   }
 
   return (
@@ -61,10 +67,19 @@ const Register = () => {
                 <div className="input-block">
                   <input name={"password"} type="password" id="password" onChange={e => setPassword(e.target.value)} value={password} placeholder={"Mot de passe"} autoComplete={"false"} required />
                   <label htmlFor="password">Mot de passe</label>
+                  <span className={password.length > 0 ? (Password.verify(password) ? "great" : "not-great") : ""}>8 Caractères min, 1 Majuscule, 1 Chiffre, 1 Caractère spécial</span>
                 </div>
                 <div className="input-block">
                   <input name={"password-repeat"} type="password" id="password-repeat" onChange={e => setPasswordRepeat(e.target.value)} value={passwordRepeat} placeholder={"Répétez le mot de passe"} autoComplete={"false"} required />
                   <label htmlFor="password-repeat">Répétez le mot de passe</label>
+                  {
+                    password.length > 0 ? (
+                      password === passwordRepeat ?
+                        (<span>Les mot de passe correspondent !</span>) : 
+                        (<span>Les mot de passe ne correspondent pas !</span>)
+                    ) :
+                    (<></>)
+                  }
                 </div>
               </div>
               <div>

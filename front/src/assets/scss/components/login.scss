@@ -71,9 +71,16 @@
           background-color: $red;
           border-radius: 3px;
         }
+        div.success {
+          margin-top: 20px;
+          padding: 10px 15px;
+          background-color: green;
+          border-radius: 3px;
+        }
+
         div.input-block {
           position: relative;
-          margin: 15px 0;
+          margin: 25px 0;
           padding: 15px 0 0;
           input {
             width: 300px;
@@ -103,6 +110,24 @@
             font-size: 1rem;
             color: #FFF;
           }
+          span {
+            position: absolute;
+            left: 0;
+            display: inline;
+            bottom: -17px;
+            font-size: .8rem;
+            font-style: italic;
+            color: #EEE;
+            transition: color .3s ease-in-out;
+            &.not-great, &.not-equals {
+              color: $red;
+              transition: color .3s ease-in-out;
+            }
+            &.great, &.equals {
+              color: green;
+              transition: color .3s ease-in-out;
+            }
+          }
           input:focus {
             ~ label {
               position: absolute;
@@ -117,7 +142,7 @@
             border-bottom: 3px solid $red;
           }
         }
-
+        
         div {
           input[type="submit"], a {
             margin: 25px 0 0 0;
@@ -157,6 +182,13 @@
           display: block;
           width: 95%;
           margin: 0 auto 50px;
+        }
+        form {
+          div.input-block {
+            input {
+              width: 100%;
+            }
+          }
         }
       }
     }

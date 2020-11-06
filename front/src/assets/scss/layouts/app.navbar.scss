@@ -105,6 +105,21 @@
   }
 }
 
+@media screen and (max-width: 1200px) {
+  .navbar {
+    .navbar_search {
+      margin-left: 30px;
+    }
+    .navbar_nav {
+      .navbar_list {
+        .navbar_item_account {
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 981px) {
   .navbar {
     display: block;
