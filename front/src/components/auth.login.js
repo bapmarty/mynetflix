@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import "../assets/scss/components/login.scss";
 
@@ -23,6 +25,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
   const [success, setSuccess] = useState("");
+  const [showPassword, setShowPassword] = useState("password");
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,12 +82,13 @@ const Login = () => {
               {Cookies.get("logout") === "successful" ? (<div className="success">Vous avez été déconnecté !</div>) : (<></>)}
               <div>
                 <div className="input-block">
-                  <input name={"mail"} type="mail" id="mail" name="mail" onChange={e => setMail(e.target.value)} value={mail} placeholder={"Adresse mail"} autoComplete={"false"} required />
+                  <input type="mail" id="mail" name="mail" onChange={e => setMail(e.target.value)} value={mail} placeholder={"Adresse mail"} autoComplete={"false"} required />
                   <label htmlFor="mail">Adresse mail</label>
                 </div>
                 <div className="input-block">
-                  <input name={"password"} type="password" id="password" name="password" onChange={e => setPassword(e.target.value)} value={password} placeholder={"Mot de passe"} autoComplete={"false"} required />
+                  <input type={showPassword} id="password" name="password" onChange={e => setPassword(e.target.value)} value={password} placeholder={"Mot de passe"} autoComplete={"false"} required />
                   <label htmlFor="password">Mot de passe</label>
+                  <button onClick={(e) => {e.preventDefault(); showPassword === "text" ? setShowPassword("password") : setShowPassword("text");}}><FontAwesomeIcon icon={showPassword === "text" ? faEyeSlash : faEye} /></button>
                 </div>
               </div>
               <div>
