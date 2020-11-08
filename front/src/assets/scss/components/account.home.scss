@@ -1,0 +1,62 @@
+.account-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 150px 0;
+  .account-block {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 0 auto;
+    h3 {
+      font-size: 1.7rem;
+      margin-bottom: 25px;
+    }
+    .account-form {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 25px 0;
+      border-top: 1px solid #333D;
+      section {
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+        margin: 15px 0;
+        .account-form-input {
+          position: relative;
+          display: flex;
+          align-items: center;
+          label {
+            width: 100px;
+            font-size: 1.3rem;
+          }
+          input {
+            display: block;
+            width: 300px;
+            padding-top: 6px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            background-color: transparent;
+            color: #EEE;
+            border: 0;
+            border-bottom: 2px #333 solid;
+            &:read-only {
+              color: #888;
+            }
+          }
+          button {
+            position: absolute;
+            right: 0;
+            background-color: transparent;
+            color: #EEE;
+            border: 0;
+          }
+          &.account-form-input:nth-child(1) {
+            margin-right: 50px;
+          }
+        }
+      }
+    }
+  }
+}
