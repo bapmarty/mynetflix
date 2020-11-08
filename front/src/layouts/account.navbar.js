@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes} from '@fortawesome/free-solid-svg-icons';
@@ -34,6 +34,7 @@ const AccountNavbar = () => {
       </div>
       <div className="navbar_nav">
         <ul className="navbar_list">
+          <li className="navbar_item"><NavLink to="/browser">Retour à l'accueil</NavLink></li>
           <li className="navbar_item"><button onClick={() => {logout()}}>Déconnexion</button></li>
         </ul>
       </div>
