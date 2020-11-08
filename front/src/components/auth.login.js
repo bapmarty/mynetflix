@@ -88,7 +88,7 @@ const Login = () => {
                 <div className="input-block">
                   <input type={showPassword} id="password" name="password" onChange={e => setPassword(e.target.value)} value={password} placeholder={"Mot de passe"} autoComplete={"false"} required />
                   <label htmlFor="password">Mot de passe</label>
-                  <button onClick={(e) => {e.preventDefault(); showPassword === "text" ? setShowPassword("password") : setShowPassword("text");}}><FontAwesomeIcon icon={showPassword === "text" ? faEyeSlash : faEye} /></button>
+                  <div onClick={(e) => {e.preventDefault(); showPassword === "text" ? setShowPassword("password") : setShowPassword("text");}}><FontAwesomeIcon icon={showPassword === "text" ? faEyeSlash : faEye} /></div>
                 </div>
               </div>
               <div>

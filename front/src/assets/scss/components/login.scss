@@ -128,10 +128,11 @@
               transition: color .3s ease-in-out;
             }
           }
-          button {
+          div {
+            display: block;
             position: absolute;
-            right: 0;
-            bottom: 8px;
+            right: 5px;
+            bottom: 10px;
             border: 0;
             background-color: #232323;
             color: #FFF;

@@ -71,18 +71,18 @@ const Register = () => {
                 <div className="input-block">
                   <input name={"password"} type={showPassword} id="password" onChange={e => setPassword(e.target.value)} value={password} placeholder={"Mot de passe"} autoComplete={"false"} required />
                   <label htmlFor="password">Mot de passe</label>
-                  <button onClick={(e) => {e.preventDefault(); showPassword === "text" ? setShowPassword("password") : setShowPassword("text");}}><FontAwesomeIcon icon={showPassword === "text" ? faEyeSlash : faEye} /></button>
+                  <div onClick={(e) => {e.preventDefault(); showPassword === "text" ? setShowPassword("password") : setShowPassword("text");}}><FontAwesomeIcon icon={showPassword === "text" ? faEyeSlash : faEye} /></div>
                   <span className={password.length > 0 ? (Password.verify(password) ? "great" : "not-great") : ""}>8 Caractères min, 1 Majuscule, 1 Chiffre, 1 Caractère spécial</span>
                 </div>
                 <div className="input-block">
                   <input name={"password-repeat"} type={showPasswordRepeat} id="password-repeat" onChange={e => setPasswordRepeat(e.target.value)} value={passwordRepeat} placeholder={"Répétez le mot de passe"} autoComplete={"false"} required />
                   <label htmlFor="password-repeat">Répétez le mot de passe</label>
-                  <button onClick={(e) => {e.preventDefault(); showPasswordRepeat === "text" ? setShowPasswordRepeat("password") : setShowPasswordRepeat("text");}}><FontAwesomeIcon icon={showPasswordRepeat === "text" ? faEyeSlash : faEye} /></button>
+                  <div onClick={(e) => {e.preventDefault(); showPasswordRepeat === "text" ? setShowPasswordRepeat("password") : setShowPasswordRepeat("text");}}><FontAwesomeIcon icon={showPasswordRepeat === "text" ? faEyeSlash : faEye} /></div>
                   {
                     password.length > 0 ? (
                       password === passwordRepeat ?
-                        (<span>Les mot de passe correspondent !</span>) : 
-                        (<span>Les mot de passe ne correspondent pas !</span>)
+                        (<span>Le mot de passe correspond !</span>) : 
+                        (<span>Le mot de passe ne correspond pas !</span>)
                     ) :
                     (<></>)
                   }
