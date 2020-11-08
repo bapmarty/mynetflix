@@ -46,6 +46,15 @@
       list-style-type: none;
       .navbar_item {
         margin: 0 15px;
+        button {
+          background-color: $red;
+          color: #EEE;
+          border: 0;
+          border-radius: 5px;
+          font-size: 1.5rem;
+          font-weight: 600;
+          padding: 10px 15px;
+        }
         a {
           position: relative;
           font-size: 1.3rem;
