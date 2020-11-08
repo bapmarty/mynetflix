@@ -1,3 +1,8 @@
+@import "../variables.scss";
+
+p.alert-account {
+  text-align: center;
+}
 .account-container {
   display: flex;
   justify-content: center;
@@ -22,7 +27,7 @@
       section {
         position: relative;
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-around;
         margin: 15px 0;
         .account-form-input {
           position: relative;
@@ -49,6 +54,7 @@
           button {
             position: absolute;
             right: 0;
+            bottom: 5px;
             background-color: transparent;
             color: #EEE;
             border: 0;
@@ -58,6 +64,165 @@
           }
         }
       }
+      section.submit-profil {
+        justify-content: flex-end;
+        input {
+          padding: 10px 15px;
+          font-size: 1.3rem;
+          font-weight: 600;
+          border: 0;
+          background-color: #EEE;
+          border-radius: 3px;
+          color: #333;
+          transition: all .2s ease-in-out;
+          &:hover {
+            background-color: $red;
+            color: #EEE;
+            transition: all .2s ease-in-out;
+          }
+        }
+      }
+    }
+    .password-form {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      border-top: 1px solid #333D;
+      section {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        .password-form-input {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          margin: 20px 0;
+          label {
+            position: relative;
+            display: block;
+            font-size: 1.3rem;
+          }
+          input {
+            position: relative;
+            display: block;
+            padding-top: 6px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            background-color: transparent;
+            color: #EEE;
+            border: 0;
+            border-bottom: 2px #333 solid;
+            &::placeholder {
+              font-size: 1.3rem;
+              font-weight: 600;
+            }
+          }
+          span {
+            position: absolute;
+            left: 0;
+            display: inline;
+            bottom: -17px;
+            font-size: .8rem;
+            font-style: italic;
+            color: #AAA;
+            transition: color .3s ease-in-out;
+            &.not-great, &.not-equals {
+              color: $red;
+              transition: color .3s ease-in-out;
+            }
+            &.great, &.equals {
+              color: green;
+              transition: color .3s ease-in-out;
+            }
+          }
+          div {
+            display: block;
+            position: absolute;
+            right: 5px;
+            bottom: 6px;
+            border: 0;
+            color: #FFF;
+            font-size: 1.3rem;
+          }
+        }
+      }
+      section.submit-password {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        input {
+          position: absolute;
+          bottom: -40px;
+          right: 0;
+          padding: 10px 15px;
+          font-size: 1.3rem;
+          font-weight: 600;
+          border: 0;
+          background-color: #EEE;
+          border-radius: 3px;
+          color: #333;
+          transition: all .2s ease-in-out;
+          &:hover {
+            background-color: $red;
+            color: #EEE;
+            transition: all .2s ease-in-out;
+          }
+        }
+      }
     }
   }
 }
+
+@media screen and (max-width: 981px) {
+  .account-container {
+    .account-block {
+      width: 95%;
+      .account-form {
+        margin: 0 0 30px 0;
+        section {
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          .account-form-input {
+            display: flex;
+            flex-direction: column;
+            margin: 15px 0;
+            label, input {
+              width: 100%;
+            }
+            button {
+              position: absolute;
+              right: 0;
+              background-color: transparent;
+              color: #EEE;
+              border: 0;
+            }
+            &.account-form-input:nth-child(1) {
+              margin-right: 0;
+            }
+          }
+        }
+        section.submit-profil {
+          margin-top: 38px;
+          input {
+            padding: 10px 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border: 0;
+            background-color: #EEE;
+            border-radius: 3px;
+            color: #333;
+          }
+        }
+      }
+      .password-form {
+        section.submit-password {
+          input {
+            position: relative;
+          }
+        }
+      }
+    }
+  }
+}  
