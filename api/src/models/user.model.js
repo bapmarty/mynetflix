@@ -7,11 +7,12 @@ const User = function(user) {
   this.mail = user.mail,
   this.password = user.password,
   this.secret = user.secret,
-  this.phone = user.phone
+  this.phone = user.phone,
+  this.avatar_id = user.avatar_id
 }
 
 User.create = (newUser, result) => {
-  var sql = `INSERT INTO users (uid, mail, password) VALUE ("${newUser.uid}", "${newUser.mail}", "${newUser.password}")`;
+  var sql = `INSERT INTO users (uid, mail, password, avatar_id) VALUE ("${newUser.uid}", "${newUser.mail}", "${newUser.password}", "${newUser.avatar_id}")`;
   bdd.query(sql, (err, res) => {
     if (err) {
       result(err, null);
@@ -22,7 +23,7 @@ User.create = (newUser, result) => {
 }
 
 User.getById = (uid, result) => {
-  bdd.query("SELECT uid, lastname, firstname, mail, phone_number, avatar_id FROM users WHERE uid = ?", uid, (err, res) => {
+  bdd.query("SELECT * FROM users WHERE uid = ?", uid, (err, res) => {
     if (err) {
       result(err, null);
       return ;
@@ -61,6 +62,20 @@ User.updateById = (uid, user, result) => {
       return ;
     }
     result(null, {uid: uid, ...user});
+  });
+}
+
+User.updatePasswordById = (uid, hash, result) => {
+  var sql = `UPDATE users SET password = "${hash}" WHERE uid = "${uid}"`;
+  bdd.query(sql, (err, res) => {
+    if (err) {
+      result(err, null);
+      return ;
+    }
+    if (res.affectedRows === 0) {
+      return ;
+    }
+    result(null, {message: "passwordUpdate"});
   });
 }
 
