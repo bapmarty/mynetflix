@@ -22,14 +22,16 @@ exports.register = (req, res) => {
             const user = new User({
               uid: uuidv4(),
               mail: req.body.mail,
-              password: hash
+              password: hash,
+              avatar_id: Math.floor(Math.random() * Math.floor(5)) + 1
             });
             
             User.create(user, (err, user) => {
-              if (err)
-              res.status(500).send({
-                message: "Can't create new user err: " + err
-              });
+              if (err) {
+                res.status(500).send({
+                  message: "Can't create new user err: " + err
+                });
+              }
               else {
                 Log.writeRegister(user.uid);
                 res.status(200).send(user);
@@ -44,17 +46,19 @@ exports.register = (req, res) => {
           })
         }
       }
-      else 
-      res.status(500).send({
-        status: "500",
-        message: "Error retrieving user with the mail " + req.body.mail
+      else {
+        res.status(500).send({
+          status: "500",
+          message: "Error retrieving user with the mail " + req.body.mail
+        });
+      }
+    }
+    else {
+      res.status(401).send({
+        status: "401",
+        message: "Error can't create account with mail " + req.body.mail
       });
     }
-    else 
-    res.status(401).send({
-      status: "401",
-      message: "Error can't create account with mail " + req.body.mail
-    });
   });
 }
 
