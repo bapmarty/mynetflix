@@ -69,6 +69,30 @@ const Account = () => {
     });
   }
   
+  const handleSubmitPassword = (e) => {
+    e.preventDefault();
+    fetch(`${process.env.REACT_APP_API_HOST}/user/update/password/${user.uid}` , {
+      method: 'POST',
+      headers: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + Cookies.get('access_token'),
+        'Access-Control-Allow-Origin': "*"        
+      },
+      body: JSON.stringify({
+        'oldpassword': oldPassword,
+        'newpassword': newPassword,
+        'newpasswordrepeat': newPasswordRepeat
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      setOldPassword("");
+      setNewPassword("");
+      setNewPasswordRepeat("");
+    })
+  }
+  
   useEffect(() => {
     fetchData();
   }, []);
@@ -111,7 +135,7 @@ const Account = () => {
         </div>
         <div className="account-block">
           <h3>Changer de mot de passe</h3>
-          <form className="password-form">
+          <form className="password-form" onSubmit={handleSubmitPassword}>
           <section>
               <div className="password-form-input">
                 <label>Votre ancien mot de passe</label>
