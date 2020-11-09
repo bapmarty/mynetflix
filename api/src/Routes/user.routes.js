@@ -8,6 +8,7 @@ module.exports = app => {
 
   // Update an user
   app.put('/user/update/:uid', auth, user.updateOne)
+  app.put('/user/update/password/:uid', auth, user.updatePassword)
 
   // Delete an user
   app.delete('/user/delete/:uid', auth, user.delete);
