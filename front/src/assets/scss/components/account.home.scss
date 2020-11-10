@@ -84,6 +84,37 @@ p.alert-account {
         }
       }
     }
+    .account-avatar {
+      padding: 25px 0;
+      border-top: 1px solid #333D;
+      .account-avatar-list {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        button {
+          position: relative;
+          background-color: transparent;
+          border: 0;
+          padding: 0;
+          margin: 0;
+          border-radius: 5px;
+          height: 70px;
+          margin: 10px 0;
+          img {
+            width: 64px;
+            height: 64px;
+            border-radius: 5px;
+            z-index: -1;
+            &.success {
+              border: 5px solid green;
+            }
+          }
+          &:not(:nth-child(1)) {
+            margin: 10px 0 10px 30px;
+          }
+        }
+      }
+    }
     .password-form {
       display: flex;
       flex-direction: column;
@@ -214,6 +245,16 @@ p.alert-account {
             background-color: #EEE;
             border-radius: 3px;
             color: #333;
+          }
+        }
+      }
+      .account-avatar {
+        .account-avatar-list {
+          justify-content: space-between;
+          button {
+            &:not(:nth-child(1)) {
+              margin-left: 0px;
+            }
           }
         }
       }

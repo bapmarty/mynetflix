@@ -8,6 +8,7 @@ import AccountNavbar from '../layouts/account.navbar';
 import Password from '../helpers/password';
 
 import "../assets/scss/components/account.home.scss";
+import Avatar from '../layouts/account.avatar';
 
 const Account = () => {
   const [user, setUser] = useState({});
@@ -133,6 +134,7 @@ const Account = () => {
             </section>
           </form>
         </div>
+        <Avatar uid={user.uid} activeAvatar={user.avatar_id} />
         <div className="account-block">
           <h3>Changer de mot de passe</h3>
           <form className="password-form" onSubmit={handleSubmitPassword}>
