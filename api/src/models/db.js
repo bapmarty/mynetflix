@@ -1,7 +1,16 @@
 const mysql = require("mysql");
 const dbConfig = require("../config/db.config.js");
 
-// Create a connection to the database
+/**
+ * @desc Create MySQL database connection.
+ * @params
+ *  string - host - database host url
+ *  string - user - username connection
+ *  string - password - user password
+ *  string - database - database name
+ * 
+ */
+
 const connection = mysql.createConnection({
   host: dbConfig.HOST,
   user: dbConfig.USER,
@@ -10,7 +19,11 @@ const connection = mysql.createConnection({
   insecureAuth: true
 });
 
-// open the MySQL connection
+/**
+ * @desc Connect api to the database and
+ * write message in the console.
+ */
+
 connection.connect(err => {
   if (err) throw err;
   console.log("Successfully connected to the database.");
