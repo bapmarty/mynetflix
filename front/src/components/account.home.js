@@ -8,6 +8,7 @@ import AccountNavbar from '../layouts/account.navbar';
 import Password from '../helpers/password';
 
 import "../assets/scss/components/account.home.scss";
+import Avatar from '../layouts/account.avatar';
 
 const Account = () => {
   const [user, setUser] = useState({});
@@ -43,6 +44,56 @@ const Account = () => {
     }
   }
 
+  const handleSubmitInformation = (e) => {
+    e.preventDefault();
+    fetch(`${process.env.REACT_APP_API_HOST}/user/update/${user.uid}`, {
+      method: 'POST',
+      headers: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + Cookies.get('access_token'),
+        'Access-Control-Allow-Origin': "*"
+      },
+      body: JSON.stringify({
+        'firstname': user.firstname,
+        'lastname': user.lastname,
+        'mail': user.mail,
+        'phone_number': user.phone_number 
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      setreadOnlyFisrtname(true);
+      setreadOnlyLastname(true);
+      setreadOnlyMail(true);
+      setreadOnlyPhone(true);
+    });
+  }
+  
+  const handleSubmitPassword = (e) => {
+    e.preventDefault();
+    fetch(`${process.env.REACT_APP_API_HOST}/user/update/password/${user.uid}` , {
+      method: 'POST',
+      headers: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + Cookies.get('access_token'),
+        'Access-Control-Allow-Origin': "*"        
+      },
+      body: JSON.stringify({
+        'oldpassword': oldPassword,
+        'newpassword': newPassword,
+        'newpasswordrepeat': newPasswordRepeat
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      setOldPassword("");
+      setNewPassword("");
+      setNewPasswordRepeat("");
+    })
+  }
+  
   useEffect(() => {
     fetchData();
   }, []);
@@ -53,7 +104,7 @@ const Account = () => {
       <div className="account-container">
         <div className="account-block">
           <h3>Informations du compte</h3>
-          <form className="account-form">
+          <form className="account-form" onSubmit={handleSubmitInformation}>
             <section>
               <div className="account-form-input">
                 <label>Prénom :</label>
@@ -83,9 +134,10 @@ const Account = () => {
             </section>
           </form>
         </div>
+        <Avatar uid={user.uid} activeAvatar={user.avatar_id} />
         <div className="account-block">
           <h3>Changer de mot de passe</h3>
-          <form className="password-form">
+          <form className="password-form" onSubmit={handleSubmitPassword}>
           <section>
               <div className="password-form-input">
                 <label>Votre ancien mot de passe</label>
@@ -120,7 +172,6 @@ const Account = () => {
           </form>
         </div>
       </div>
-      <p className="alert-account">Il n'est pas encore possible de mettre à jour les informations personnelles !</p>
     </>
   );
 }
