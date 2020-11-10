@@ -3,7 +3,7 @@ const dbConfig = require("../config/db.config.js");
 
 /**
  * @desc Create MySQL database connection.
- * @params
+ * @param
  *  string - host - database host url
  *  string - user - username connection
  *  string - password - user password
