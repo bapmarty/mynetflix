@@ -65,6 +65,20 @@ User.updateById = (uid, user, result) => {
   });
 }
 
+User.updateAvatarById = (uid, avatar, result) => {
+  var sql = `UPDATE users SET avatar_id = "${avatar}" WHERE uid = "${uid}"`;
+  bdd.query(sql, (err, res) => {
+    if (err) {
+      result(err, null);
+      return ;
+    }
+    if (res.affectedRows === 0) {
+      return ;
+    }
+    result(null, {uid: uid, avatar_id: avatar});
+  });
+}
+
 User.updatePasswordById = (uid, hash, result) => {
   var sql = `UPDATE users SET password = "${hash}" WHERE uid = "${uid}"`;
   bdd.query(sql, (err, res) => {

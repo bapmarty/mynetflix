@@ -37,6 +37,20 @@ exports.updateOne = (req, res) => {
   });
 }
 
+exports.updateAvatar = (req, res) => {
+  if (!req.params.uid)
+    res.status(400).send({
+      message: "No uid found !"
+    });
+  User.updateAvatarById(req.params.uid, req.body.avatar_id, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        message: "Error updating user with id " + req.params.uid
+      });
+    } else res.status(200).send(data);
+  });
+}
+
 exports.updatePassword = (req, res) => {
   if (!req.params.uid)
     res.status(400).send({
