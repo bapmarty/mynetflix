@@ -23,7 +23,7 @@ const AccountNavbar = () => {
   }
 
   return (
-    <div className={show}>
+    <div className={show + " account"}>
       <div className="navbar_logo">
         <img src={MyNetflixLogo} alt={"mynetflix logo"}/>
         <div className="navbar_responsive">
