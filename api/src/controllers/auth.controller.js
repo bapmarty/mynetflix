@@ -7,6 +7,13 @@ require('dotenv').config();
 const User = require("../models/user.model.js");
 const Log = require("../helpers/log.helper.js");
 
+
+/**
+ * Register new user 
+ * @param {Object} req Request body containing the user information
+ * @param {Object} res Return status and data
+ */
+
 exports.register = (req, res) => {
   if (req.body === 0) {
     res.status(400).send({
@@ -62,9 +69,14 @@ exports.register = (req, res) => {
   });
 }
 
-exports.login = (req, res) => {
 
-  
+/**
+ * Login an user 
+ * @param {Object} req Request body containing user login information (mail & password)
+ * @param {Object} res Return status and data
+ */
+
+exports.login = (req, res) => {
   User.getByMail(req.body.mail, (err, user) => {
     if (err)
     if (err.kind)

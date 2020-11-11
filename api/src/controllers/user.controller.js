@@ -1,6 +1,12 @@
 const User = require("../models/user.model.js");
 const bcrypt = require('bcrypt');
 
+/**
+ * Get one user 
+ * @param {Object} req Request containing the uid
+ * @param {Object} res Return status and data
+ */
+
 exports.getOne = (req, res) => {
   if (!req.params.uid)
     res.status(400).send({
@@ -16,6 +22,13 @@ exports.getOne = (req, res) => {
     } else res.status(200).send(data);
   });
 }
+
+
+/**
+ * Update an user 
+ * @param {Object} req Request containing the uid and req.body containing user information
+ * @param {Object} res Return status and data
+ */
 
 exports.updateOne = (req, res) => {
   if (!req.params.uid)
@@ -37,6 +50,13 @@ exports.updateOne = (req, res) => {
   });
 }
 
+
+/**
+ * Update an user avatar
+ * @param {Object} req Request containing the uid and req.body containing user avatar
+ * @param {Object} res Return status and data
+ */
+
 exports.updateAvatar = (req, res) => {
   if (!req.params.uid)
     res.status(400).send({
@@ -50,6 +70,13 @@ exports.updateAvatar = (req, res) => {
     } else res.status(200).send(data);
   });
 }
+
+
+/**
+ * Update an user password
+ * @param {Object} req Request containing the uid and req.body containing user password info
+ * @param {Object} res Return status and data
+ */
 
 exports.updatePassword = (req, res) => {
   if (!req.params.uid)
@@ -91,6 +118,12 @@ exports.updatePassword = (req, res) => {
     }
   });
 }
+
+/**
+ * Delete an user 
+ * @param {Object} req Request containing the uid
+ * @param {Object} res Return status and data
+ */
 
 exports.delete = (req, res) => {
   if (!req.params.uid)
