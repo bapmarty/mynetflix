@@ -1,4 +1,6 @@
 */node_modules
 */.DS_Store
 .env
-
+**/ressources/static/avatars/**
+**/ressources/static/films/background/**
+**/ressources/static/series/background/**
