@@ -5,6 +5,7 @@ const bdd = require('./db');
  * 
  * @param {*} user User information
  */
+
 const User = function(user) {
   this.uid = user.uid,
   this.lastname = user.lastname,
