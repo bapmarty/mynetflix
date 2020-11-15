@@ -1,9 +1,12 @@
 const express = require("express");
+const fileUpload = require('express-fileupload');
 var cookieParser = require("cookie-parser");
 var bodyParser = require('body-parser');
 var cors = require("cors");
 require('dotenv').config();
 const app = express();
+
+global.__basedir = __dirname;
 
 
 // bodyparser
@@ -29,6 +32,14 @@ app.use((req, res, next) => {
   }
 });
 
+// enable files upload
+app.use(fileUpload({
+  createParentPath: true,
+  limits: { 
+    fileSize: 16000000
+  },
+  abortOnLimit: true
+}));
 
 // Default route
 app.get('/', (req, res) => {
@@ -39,8 +50,9 @@ app.get('/', (req, res) => {
 // Routes imports
 require('./src/Routes/user.routes.js')(app);
 require('./src/Routes/auth.routes.js')(app);
+require('./src/Routes/film.routes.js')(app);
 
 // Listen
 app.listen(process.env.MYNETFLIX_API_PORT, function () {
-  console.log('api.mynetflix.com listening on port ' + process.env.MYNETFLIX_API_PORT + '!');
+  console.log( process.env.API_HOST + ' listening on port ' + process.env.MYNETFLIX_API_PORT + '!');
 })
