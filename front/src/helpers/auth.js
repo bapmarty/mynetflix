@@ -1,5 +1,7 @@
 import Cookies from 'js-cookie';
 
+var user = {};
+
 const Auth = {
   
   getAuth() {
@@ -14,8 +16,8 @@ const Auth = {
           }
         })
         .then(res => res.json())
-        .then(data => { });
-      return (true);
+        .then(data => { user = data; });
+        return user;
     }
     else
       return (false);

@@ -2,6 +2,7 @@ import { Switch, Redirect, Route } from "react-router-dom";
 
 import Account from "../components/account.home";
 import Home from "../components/app.home";
+import Content from "../components/admin.home";
 
 import Login from "../components/auth.login";
 import Register from "../components/auth.register";
@@ -17,6 +18,7 @@ function AppRoute() {
         <PrivateRoute path="/film" component={Home} />
         <PrivateRoute path="/search?q=" component={Home} />
         <PrivateRoute path="/categories" component={Home} />
+        <AdminRoute path="/content" component={Content} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
 
@@ -32,5 +34,14 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     render = { props => Auth.getAuth() ? (<Component {...props} />) : (<Redirect to="/login" />)}
   />
 );
+
+const AdminRoute = ({ component: Component, ...rest }) => (
+  <Route 
+    exact 
+    {...rest}
+    render = { props => Auth.getAuth().admin === 1 ? (<Component {...props} />) : (<Redirect to="/browser" />)}
+  />
+);
+
 
 export default AppRoute;
