@@ -5,9 +5,9 @@ const Film = require("../models/film.model.js");
 
 exports.add = async (req, res) => {
   if (!req.body && !req.files)
-  res.status('400').send({
-    message: "Nothing to add"
-  });
+    res.status(400).send({
+      message: "Nothing to add"
+    });
   else {
     let film_uid = short.generate();
     try {
