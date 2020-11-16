@@ -60,6 +60,7 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_DB_HOST: ${MYSQL_DB_HOST}
       SECRET_TOKEN_JWT: ${SECRET_TOKEN_JWT}
+      API_HOST: ${REACT_APP_API_HOST}
     networks:
       - mynetflix
 
