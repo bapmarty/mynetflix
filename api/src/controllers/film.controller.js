@@ -12,6 +12,7 @@ exports.add = async (req, res) => {
     let film_uid = short.generate();
     try {
       req.files.background.mv(__basedir + "/ressources/static/films/background/" + film_uid + "." + req.files.background.mimetype.split('/')[1]);
+      req.files.poster.mv(__basedir + "/ressources/static/films/poster/" + film_uid + "." + req.files.poster.mimetype.split('/')[1]);
     } catch (e) {
       res.status(500).send({ err: "Catch" });
     }
@@ -20,6 +21,7 @@ exports.add = async (req, res) => {
       title: req.body.title,
       synopsis: req.body.synopsis,
       background_link: process.env.API_HOST + "/ressources/static/films/background/" + film_uid + "." + req.files.background.mimetype.split('/')[1],
+      poster_link: process.env.API_HOST + "/ressources/static/films/poster/" + film_uid + "." + req.files.poster.mimetype.split('/')[1],
       trailer_link: req.body.trailer_link
     })
 
