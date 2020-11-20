@@ -43,7 +43,6 @@ const Account = () => {
         }
       });
       const data = await res.json();
-      console.log(data);
       if (data.error) {
         Auth.signOut();
         Cookies.set("logout", "revoke_access", {expires: new Date(new Date().getTime() + 10 * 1000)});

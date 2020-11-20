@@ -58,7 +58,7 @@ const AppNavbar = () => {
           <li className="navbar_item"><NavLink to="/film" activeClassName="active">Films</NavLink></li>
           <li className="navbar_item"><NavLink to="/series" activeClassName="active">Séries</NavLink></li>
           <li className="navbar_item"><NavLink to="/categories" activeClassName="active">Catégories</NavLink></li>
-          <li className="navbar_item_account"><NavLink to={`/account/${user.uid}`}><Avatar id={user.avatar_id} /></NavLink></li>
+          <li className="navbar_item_account"><NavLink to={`/account/user/${user.uid}`}><Avatar id={user.avatar_id} /></NavLink></li>
         </ul>
       </div>
     </div>

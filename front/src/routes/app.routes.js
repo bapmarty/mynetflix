@@ -9,39 +9,41 @@ import Register from "../components/auth.register";
 
 import Auth from "../helpers/auth";
 
-function AppRoute() {
+const AppRoute = () => {
   return (
     <Switch>
-        <PrivateRoute path="/account/:uid" component={Account} />
+        <PrivateRoute path="/account/user/:uid" component={Account} />
         <PrivateRoute path="/browser" component={Home} />
         <PrivateRoute path="/series" component={Home} />
         <PrivateRoute path="/film" component={Home} />
         <PrivateRoute path="/search?q=" component={Home} />
         <PrivateRoute path="/categories" component={Home} />
-        <AdminRoute path="/content" component={Content} />
+        <AdminRoute   path="/account/content" component={Content} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-
-        {Auth.getAuth() ? (<Redirect to="/browser" />) : (<Redirect to="/login" />)}
+        {Auth.getUser().uid ? (<Redirect to="/browser" />) : (<Redirect to="/login" />)}
     </Switch>
   )
 }
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route 
-    exact 
-    {...rest}
-    render = { props => Auth.getAuth() ? (<Component {...props} />) : (<Redirect to="/login" />)}
-  />
-);
+const PrivateRoute = ({component: Component, ...rest }) => {
+  return (
+    <Route 
+      exact 
+      {...rest}
+      render = { props => Auth.getUser().uid ? (<Component {...props} />) : (<Redirect to="/login" />)}
+    />
+  );
+}
 
-const AdminRoute = ({ component: Component, ...rest }) => (
-  <Route 
-    exact 
-    {...rest}
-    render = { props => Auth.getAuth().admin === 1 ? (<Component {...props} />) : (<Redirect to="/browser" />)}
-  />
-);
-
+const AdminRoute = ({ component: Component, ...rest }) => {
+  return (
+    <Route 
+      exact 
+      {...rest}
+      render = { props => Auth.getUser().admin === 1 ? (<Component {...props} />) : (<Redirect to={"/"} />)}
+    />
+  );
+}
 
 export default AppRoute;
