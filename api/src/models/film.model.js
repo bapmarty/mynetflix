@@ -33,6 +33,24 @@ Film.add = (newFilm, result) => {
 
 
 /**
+ * Get all films in the database
+ * 
+ * @param {Function} result return data or error
+ */
+
+Film.getAll = (result) => {
+  var sql = `SELECT * FROM films`;
+  bdd.query(sql, (err, res) => {
+    if (err) {
+      result(err, null);
+      return ;
+    }
+    result(null, res);
+  })
+}
+
+
+/**
  * Update film in the database
  * 
  * @param {String} film_uid Unique id film

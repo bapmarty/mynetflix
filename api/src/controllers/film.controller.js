@@ -34,3 +34,13 @@ exports.add = async (req, res) => {
     })
   }
 }
+
+exports.getAll = (req, res) => {
+  Film.getAll((err, data) => {
+    if (err)
+      res.status(400).send({
+        message: "No film found !"
+      });
+    else res.status(200).send(data);
+  });
+}
