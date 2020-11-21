@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,6 +11,7 @@ import MyNetflixLogo from '../assets/images/mynetflix.png';
 import "../assets/scss/layouts/app.navbar.scss";
 
 const AccountNavbar = () => {
+
   var time = new Date(new Date().getTime() + 10 * 1000);
   
   const [show, setShow] = useState("navbar");
@@ -34,6 +35,8 @@ const AccountNavbar = () => {
       </div>
       <div className="navbar_nav">
         <ul className="navbar_list">
+          {Cookies.get("is_admin") === '1' ? (<li className="navbar_item"><NavLink to="/account/content">Contenu du site</NavLink></li>) : (<></>)}
+          <li className="navbar_item"><NavLink to={"/account/user/" + Cookies.get('uid')}>Mon compte</NavLink></li>
           <li className="navbar_item"><NavLink to="/browser">Retour à l'accueil</NavLink></li>
           <li className="navbar_item"><button onClick={() => {logout()}}>Déconnexion</button></li>
         </ul>

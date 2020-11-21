@@ -7,6 +7,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import "../assets/scss/components/login.scss";
 
 import Logo from '../assets/images/mynetflix.png';
+import Auth from '../helpers/auth';
 
 const NewLineText = (props) => {
   const text = props.text;
@@ -46,9 +47,10 @@ const Login = () => {
       if (data.uid) {
         if (Cookies.get("register-success"))
           Cookies.remove("register-success");
-        Cookies.set('uid', data.uid);
-        Cookies.set('access_token', data.token);
-        history.push('/browser');
+          Cookies.set('uid', data.uid);
+          Cookies.set('access_token', data.token);
+          Auth.isAdmin();
+          history.push('/browser');
       }
       if (data.status === '404')
         setErr("Utilisateur introuvable !");
@@ -79,7 +81,7 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
               {err ? (<div className="error">{err}</div>) : (<></>)}
               {success ? (<div className="success backlines"><NewLineText text={success} /></div>) : (<></>)}
-              {Cookies.get("logout") === "successful" ? (<div className="success">Vous avez été déconnecté !</div>) : (<></>)}
+              {Cookies.get("logout") ? (<div className="success">Vous avez été déconnecté !</div>) : (<></>)}
               <div>
                 <div className="input-block">
                   <input type="mail" id="mail" name="mail" onChange={e => setMail(e.target.value)} value={mail} placeholder={"Adresse mail"} autoComplete={"false"} required />

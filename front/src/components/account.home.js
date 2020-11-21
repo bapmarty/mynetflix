@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import AccountNavbar from '../layouts/account.navbar';
 
+import Auth from '../helpers/auth';
 import Password from '../helpers/password';
 
 import "../assets/scss/components/account.home.scss";
 import Avatar from '../layouts/account.avatar';
 
 const Account = () => {
+  const history = useHistory();
   const [user, setUser] = useState({});
 
   const [readOnlyFisrtname, setreadOnlyFisrtname] = useState(true);
@@ -40,6 +43,11 @@ const Account = () => {
         }
       });
       const data = await res.json();
+      if (data.error) {
+        Auth.signOut();
+        Cookies.set("logout", "revoke_access", {expires: new Date(new Date().getTime() + 10 * 1000)});
+        history.push("/login");
+      }
       setUser(data);
     }
   }
@@ -96,7 +104,7 @@ const Account = () => {
   
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   return (
     <>
