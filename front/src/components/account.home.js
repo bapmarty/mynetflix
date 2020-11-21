@@ -104,7 +104,7 @@ const Account = () => {
   
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   return (
     <>
