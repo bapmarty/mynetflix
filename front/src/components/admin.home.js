@@ -1,9 +1,12 @@
 import AccountNavbar from '../layouts/account.navbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faAngleDown, faPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 
 import Content from '../helpers/content';
+import { NavLink } from 'react-router-dom';
+
+import "../assets/scss/components/admin.home.scss";
 
 const Admin = () => {
   return (
@@ -16,6 +19,7 @@ const Admin = () => {
 
 const FilmContent = () => {
   const [films, setFilms] = useState([]);
+  const [show, setShow] = useState("cat-content show");
 
   async function fetchData() {
     setFilms(await Content.getAllFilms());
@@ -25,19 +29,29 @@ const FilmContent = () => {
     fetchData();
   }, []);
 
-  console.log(films);
   return (
     <>
       <section className="cat-block">
         <div className="cat-title">
-          <h2>Film</h2>
-          <span><FontAwesomeIcon icon={faAngleRight} /></span>
+          <h2>Films</h2>
+          <div>
+            <span className="plus" ><NavLink to="/account/add/film/"><FontAwesomeIcon icon={faPlus} /></NavLink></span>
+            <span className="show" onClick={() => { show === "cat-content" ? setShow("cat-content show") : setShow("cat-content")}}><FontAwesomeIcon icon={show === "cat-content" ? faAngleRight : faAngleDown} /></span>
+          </div>
         </div>
-        <section className="cat-content">
+        <section className={show}>
           {
-            films.map((film, i) => {
-              return (<img key={i} src={film.poster_link} alt={"bonsouer"}/>)
-            })
+            films.map((film, i) => (
+              <div className="film" key={i}>
+                <img src={film.poster_link} alt={film.title}/>
+                <NavLink to={"/account/edit/content/film/" + film.uid} className="film-hover">
+                  <div>
+                    <span><FontAwesomeIcon icon={faPlusCircle} /></span>
+                    <p>Voir plus</p>
+                  </div>
+                </NavLink>
+              </div>
+            ))
           }
         </section>
       </section>
