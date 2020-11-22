@@ -1,14 +1,18 @@
+import { useState, useEffect } from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 import Cookies from 'js-cookie';
-import Account from "../components/account.home";
+
 import Home from "../components/app.home";
+
+import Account from "../components/account.home";
+
 import Content from "../components/admin.home";
+import ContentFilm from "../components/admin.content.film";
 
 import Login from "../components/auth.login";
 import Register from "../components/auth.register";
 
 import Auth from "../helpers/auth";
-import { useState, useEffect } from "react";
 
 const AppRoute = () => {
   const [user, setUser] = useState({});
@@ -30,6 +34,7 @@ const AppRoute = () => {
         <PrivateRoute path="/search?q=" component={Home} />
         <PrivateRoute path="/categories" component={Home} />
         <AdminRoute user={user} path="/account/content" component={Content} />
+        <AdminRoute user={user} path="/account/edit/content/film/:filmuid" component={ContentFilm} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         {Auth.isAuth() ? (<Redirect to="/browser" />) : (<Redirect to="/login" />)}
