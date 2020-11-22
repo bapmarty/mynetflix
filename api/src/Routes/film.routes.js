@@ -7,6 +7,7 @@ module.exports = app => {
   app.post('/film/add', auth, film.add);
 
   app.get('/film/all/:uid', auth, film.getAll);
+  app.get('/film/:filmuid/:uid', auth, film.getOne);
 
   app.get('/ressources/static/films/background/:imageFile', function (req, res) {
     res.sendFile(__basedir + '/ressources/static/films/background/' + req.params.imageFile);

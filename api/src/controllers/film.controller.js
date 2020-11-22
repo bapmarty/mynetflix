@@ -44,3 +44,13 @@ exports.getAll = (req, res) => {
     else res.status(200).send(data);
   });
 }
+
+exports.getOne = (req, res) => {
+  Film.getOne(req.params.filmuid, (err, data) => {
+    if (err)
+      res.status(400).send({
+        message: "No film found !"
+      });
+    else res.status(200).send(data);
+  });
+}

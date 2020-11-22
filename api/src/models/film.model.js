@@ -51,6 +51,24 @@ Film.getAll = (result) => {
 
 
 /**
+ * Get one films in the database
+ * 
+ * @param {Function} result return data or error
+ */
+
+Film.getOne = (film_uid, result) => {
+  var sql = `SELECT * FROM films WHERE uid = "${film_uid}"`;
+  bdd.query(sql, (err, res) => {
+    if (err) {
+      result(err, null);
+      return ;
+    }
+    result(null, res);
+  })
+}
+
+
+/**
  * Update film in the database
  * 
  * @param {String} film_uid Unique id film
