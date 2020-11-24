@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 import Cookies from 'js-cookie';
 
 import Content from '../../helpers/content';
 import AccountNavbar from "../../layouts/account.navbar";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 const ContentFilm = () => {
   const [film, setFilm] = useState({});
@@ -34,7 +34,7 @@ const ContentFilm = () => {
 
   useEffect(() => {
     fetchData();
-  }, [film]);
+  }, []);
 
   return (
     <>
@@ -59,7 +59,7 @@ const ContentFilm = () => {
             />
           </div>
           <div className="synopsis">
-            <textarea value={film.synopsis}>{film.synopsis}</textarea>
+            <textarea value={film.synopsis} onChange={(e) => setFilm({...film, synopsis: e.target.value})} />
           </div>
           <div className="poster-background">
             <Poster film={film} />
