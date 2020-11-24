@@ -62,7 +62,8 @@ exports.updateAvatar = (req, res) => {
     res.status(400).send({
       message: "No uid found !"
     });
-  User.updateAvatarById(req.params.uid, req.body.avatar_id, (err, data) => {
+  const avatar = process.env.API_HOST + "/ressources/static/avatars/avatar_" + req.body.avatar + ".png";
+  User.updateAvatarById(req.params.uid, avatar, (err, data) => {
     if (err) {
       res.status(500).send({
         message: "Error updating user with id " + req.params.uid

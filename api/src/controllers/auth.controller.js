@@ -30,7 +30,7 @@ exports.register = (req, res) => {
               uid: uuidv4(),
               mail: req.body.mail,
               password: hash,
-              avatar_id: Math.floor(Math.random() * Math.floor(5)) + 1
+              avatar: process.env.API_HOST + "/ressources/static/avatars/avatar_" + (Math.floor(Math.random() * Math.floor(5)) + 1) + ".png" 
             });
             
             User.create(user, (err, user) => {

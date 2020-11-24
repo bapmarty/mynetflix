@@ -4,8 +4,6 @@ import Cookies from "js-cookie";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBars, faTimes} from '@fortawesome/free-solid-svg-icons';
 
-import Avatar from '../helpers/avatar';
-
 import MyNetflixLogo from '../assets/images/mynetflix.png';
 
 import "../assets/scss/layouts/app.navbar.scss";
@@ -36,6 +34,8 @@ const AppNavbar = () => {
     fetchData();
   }, []);
 
+
+  console.log(user);
   return (
     <div className={show}>
       <div className="navbar_logo">
@@ -58,7 +58,7 @@ const AppNavbar = () => {
           <li className="navbar_item"><NavLink to="/film" activeClassName="active">Films</NavLink></li>
           <li className="navbar_item"><NavLink to="/series" activeClassName="active">Séries</NavLink></li>
           <li className="navbar_item"><NavLink to="/categories" activeClassName="active">Catégories</NavLink></li>
-          <li className="navbar_item_account"><NavLink to={`/account/user/${user.uid}`}><Avatar id={user.avatar_id} /></NavLink></li>
+          <li className="navbar_item_account"><NavLink to={`/account/user/${user.uid}`}><img src={user.avatar} alt={"user account logo"} /></NavLink></li>
         </ul>
       </div>
     </div>

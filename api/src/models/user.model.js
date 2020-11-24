@@ -14,7 +14,7 @@ const User = function(user) {
   this.password = user.password,
   this.secret = user.secret,
   this.phone = user.phone,
-  this.avatar_id = user.avatar_id
+  this.avatar = user.avatar
 }
 
 
@@ -26,7 +26,7 @@ const User = function(user) {
  */
 
 User.create = (newUser, result) => {
-  var sql = `INSERT INTO users (uid, mail, password, avatar_id) VALUE ("${newUser.uid}", "${newUser.mail}", "${newUser.password}", "${newUser.avatar_id}")`;
+  var sql = `INSERT INTO users (uid, mail, password, avatar) VALUE ("${newUser.uid}", "${newUser.mail}", "${newUser.password}", "${newUser.avatar}")`;
   bdd.query(sql, (err, res) => {
     if (err) {
       result(err, null);
@@ -114,7 +114,7 @@ User.updateById = (uid, user, result) => {
  */
 
 User.updateAvatarById = (uid, avatar, result) => {
-  var sql = `UPDATE users SET avatar_id = "${avatar}" WHERE uid = "${uid}"`;
+  var sql = `UPDATE users SET avatar = "${avatar}" WHERE uid = "${uid}"`;
   bdd.query(sql, (err, res) => {
     if (err) {
       result(err, null);
@@ -123,7 +123,7 @@ User.updateAvatarById = (uid, avatar, result) => {
     if (res.affectedRows === 0) {
       return ;
     }
-    result(null, {uid: uid, avatar_id: avatar});
+    result(null, {uid: uid, avatar: avatar});
   });
 }
 

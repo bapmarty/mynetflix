@@ -5,6 +5,9 @@ module.exports = app => {
   
   // Get an user
   app.get('/user/:uid', auth, user.getOne);
+  app.get('/ressources/static/avatars/:imageFile', function (req, res) {
+    res.sendFile(__basedir + '/ressources/static/avatars/' + req.params.imageFile);
+  })
 
   // Update an user
   app.post('/user/update/:uid', auth, user.updateOne);

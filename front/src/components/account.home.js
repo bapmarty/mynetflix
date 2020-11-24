@@ -142,7 +142,7 @@ const Account = () => {
             </section>
           </form>
         </div>
-        <Avatar uid={user.uid} activeAvatar={user.avatar_id} />
+        <Avatar uid={user.uid} activeAvatar={user.avatar} />
         <div className="account-block">
           <h3>Changer de mot de passe</h3>
           <form className="password-form" onSubmit={handleSubmitPassword}>
