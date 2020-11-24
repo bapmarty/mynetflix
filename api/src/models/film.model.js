@@ -71,19 +71,22 @@ Film.getOne = (film_uid, result) => {
 /**
  * Update film in the database
  * 
- * @param {String} film_uid Unique id film
- * @param {Array<String>} newFilm Film information (unique id,  title, synopsis, background_link, poster_link, trailer_link)
+ * @param {String} film_uid Film unique id
+ * @param {Array<String>} update Film information (unique id,  title, synopsis, background_link, poster_link, trailer_link)
  * @param {Function} result return data or error
  */
 
-Film.updateOne = (film_uid, update, result) => {
-  var sql = `UPDATE films SET title = "${update.title}", synopsis = "${update.synopsis}", background_link = "${update.background_link}", poster_link = "${update.poster_link}", trailer_link = "${update.trailer_link}" WHERE uid = ${film_uid}`;
+Film.updateOneById = (film_uid, update, result) => {
+  var sql = `UPDATE films SET title = "${update.title}", synopsis = "${update.synopsis}", trailer_link = "${update.trailer_link}" WHERE uid = "${film_uid}"`;
   bdd.query(sql, (err, res) => {
     if (err) {
       result(err, null);
       return ;
     }
-    result(null, {film_uid: film_uid, ...update});
+    if (res.affectedRows === 0) {
+      return ;
+    }
+    result(null, {...update});
   })
 }
 

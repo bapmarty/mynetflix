@@ -16,7 +16,5 @@ module.exports = app => {
     res.sendFile(__basedir + '/ressources/static/films/poster/' + req.params.imageFile);
   })
   
- // app.update('/auth/update/:uid', film.edit);
-
- // app.delete('/auth/delete/:uid', film.delete);
+  app.post('/film/update/:uid', auth, film.updateOne);
 };

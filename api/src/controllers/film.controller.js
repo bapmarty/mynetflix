@@ -54,3 +54,14 @@ exports.getOne = (req, res) => {
     else res.status(200).send(data);
   });
 }
+
+exports.updateOne = (req, res) => {
+  Film.updateOneById(req.body.uid, req.body, (err, data) => {
+    console.log(err | data);
+    if (err)
+      res.status(400).send({
+        message: "No film found !"
+      });
+    else res.status(200).send(data);
+  });
+}
