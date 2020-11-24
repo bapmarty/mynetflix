@@ -1,52 +1,44 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
-import AccountNavbar from '../layouts/account.navbar';
+import AccountNavbar from '../../layouts/account.navbar';
 
-import Auth from '../helpers/auth';
-import Password from '../helpers/password';
+import Auth from '../../helpers/auth';
+import Password from '../../helpers/password';
 
 import "../../assets/scss/components/account.home.scss";
 
 const Account = () => {
-  const history = useHistory();
+  return (
+    <>
+      <AccountNavbar />
+      <div className="account-container">
+        <div className="account-block">
+          <UserInformation />
+        </div>
+        <Avatar />
+        <div className="account-block">
+          <UserPassword />
+        </div>
+      </div>
+    </>
+  );
+}
+
+const UserInformation = () => {
   const [user, setUser] = useState({});
+  const [readOnlyFisrtname, setreadOnlyFisrtname] = useState(true);
+  const [readOnlyLastname, setreadOnlyLastname] = useState(true);
+  const [readOnlyMail, setreadOnlyMail] = useState(true);
+  const [readOnlyPhone, setreadOnlyPhone] = useState(true);
 
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [newPasswordRepeat, setNewPasswordRepeat] = useState("");
-
-  const [showOldPassword, setShowOldPassword] = useState("password");
-  const [showNewPassword, setShowNewPassword] = useState("password");
-  const [showNewPasswordRepeat, setShowNewPasswordRepeat] = useState("password");
-  
   async function fetchData() {
-    const cookie_uid = Cookies.get("uid");
-    const cookie_token = Cookies.get("access_token");
-    if (cookie_uid && cookie_token) {
-      var res = await fetch(`${process.env.REACT_APP_API_HOST}/user/${cookie_uid}`, {
-        method: 'GET',
-        headers: {
-          'Accept': '*/*',
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + Cookies.get('access_token'),
-          'Access-Control-Allow-Origin': "*"
-        }
-      });
-      const data = await res.json();
-      if (data.error) {
-        Auth.signOut();
-        Cookies.set("logout", "revoke_access", {expires: new Date(new Date().getTime() + 10 * 1000)});
-        history.push("/login");
-      }
-      setUser(data);
-    }
+    setUser(await Auth.getUser());
   }
 
-  const handleSubmitInformation = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     fetch(`${process.env.REACT_APP_API_HOST}/user/update/${user.uid}`, {
       method: 'POST',
@@ -65,124 +57,18 @@ const Account = () => {
     })
     .then(res => res.json())
     .then(data => {
-      setreadOnlyFisrtname(true);
-      setreadOnlyLastname(true);
-      setreadOnlyMail(true);
-      setreadOnlyPhone(true);
+      window.location.reload();
     });
   }
-  
-  const handleSubmitPassword = (e) => {
-    e.preventDefault();
-    fetch(`${process.env.REACT_APP_API_HOST}/user/update/password/${user.uid}` , {
-      method: 'POST',
-      headers: {
-        'Accept': '*/*',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + Cookies.get('access_token'),
-        'Access-Control-Allow-Origin': "*"        
-      },
-      body: JSON.stringify({
-        'oldpassword': oldPassword,
-        'newpassword': newPassword,
-        'newpasswordrepeat': newPasswordRepeat
-      })
-    })
-    .then(res => res.json())
-    .then(data => {
-      setOldPassword("");
-      setNewPassword("");
-      setNewPasswordRepeat("");
-    })
-  }
-  
+
   useEffect(() => {
     fetchData();
-  });
-
-  return (
-    <>
-      <AccountNavbar />
-      <div className="account-container">
-        <div className="account-block">
-        
-        </div>
-        <Avatar uid={user.uid} activeAvatar={user.avatar} />
-        <div className="account-block">
-          <h3>Changer de mot de passe</h3>
-          <form className="password-form" onSubmit={handleSubmitPassword}>
-          <section>
-              <div className="password-form-input">
-                <label>Votre ancien mot de passe</label>
-                <input type={showOldPassword} name="old-password" id="old-password" value={oldPassword} onChange={(e) => { setOldPassword(e.target.value) }} placeholder={"Saisissez votre ancien mot de passe"} required/>
-                <div onClick={(e) => {e.preventDefault(); setShowOldPassword(showOldPassword === "text" ? "password" : "text");}}><FontAwesomeIcon icon={showOldPassword === "text" ? faEyeSlash : faEye} /></div>
-              </div>
-            </section>
-            <section>
-              <div className="password-form-input">
-                <label>Votre nouveau mot de passe</label>
-                <input type={showNewPassword} name="new-password" id="new-password" value={newPassword} onChange={(e) => { setNewPassword(e.target.value) }} placeholder={"Votre nouveau mot de passe"} required/>
-                <div onClick={(e) => {e.preventDefault(); setShowNewPassword(showNewPassword === "text" ? "password" : "text");}}><FontAwesomeIcon icon={showNewPassword === "text" ? faEyeSlash : faEye} /></div>
-                <span className={newPassword.length > 0 ? (Password.verify(newPassword) ? "great" : "not-great") : ""}>8 Caractères min, 1 Majuscule, 1 Chiffre, 1 Caractère spécial</span>
-              </div>
-              <div className="password-form-input">
-                <label>Répétez le nouveau mot de passe</label>
-                <input type={showNewPasswordRepeat} name="new-password-repeat" id="new-password-repeat" value={newPasswordRepeat} onChange={(e) => { setNewPasswordRepeat(e.target.value) }} placeholder={"Répétez le nouveau mot de passe"} required/>
-                <div onClick={(e) => {e.preventDefault(); setShowNewPasswordRepeat(showNewPasswordRepeat === "text" ? "password" : "text");}}><FontAwesomeIcon icon={showNewPasswordRepeat === "text" ? faEyeSlash : faEye} /></div>
-                {
-                  newPassword.length > 0 ? (
-                    newPassword === newPasswordRepeat ?
-                      (<span>Le mot de passe correspond !</span>) : 
-                      (<span>Le mot de passe ne correspond pas !</span>)
-                  ) :
-                  (<></>)
-                }
-              </div>
-            </section>
-            <section className="submit-password">
-              <input type="submit" value="Mettre à jour le mot de passe" />
-            </section>
-          </form>
-        </div>
-      </div>
-    </>
-  );
-}
-
-const userInformation = (props) => {
-
-  const [readOnlyFisrtname, setreadOnlyFisrtname] = useState(true);
-  const [readOnlyLastname, setreadOnlyLastname] = useState(true);
-  const [readOnlyMail, setreadOnlyMail] = useState(true);
-  const [readOnlyPhone, setreadOnlyPhone] = useState(true);
-
-  async function fetchData() {
-    const cookie_uid = Cookies.get("uid");
-    const cookie_token = Cookies.get("access_token");
-    if (cookie_uid && cookie_token) {
-      var res = await fetch(`${process.env.REACT_APP_API_HOST}/user/${cookie_uid}`, {
-        method: 'GET',
-        headers: {
-          'Accept': '*/*',
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + Cookies.get('access_token'),
-          'Access-Control-Allow-Origin': "*"
-        }
-      });
-      const data = await res.json();
-      if (data.error) {
-        Auth.signOut();
-        Cookies.set("logout", "revoke_access", {expires: new Date(new Date().getTime() + 10 * 1000)});
-        history.push("/login");
-      }
-      setUser(data);
-    }
-  }
+  }, []);
 
   return (
     <>
       <h3>Informations du compte</h3>
-      <form className="account-form" onSubmit={handleSubmit()}>
+      <form className="account-form" onSubmit={handleSubmit}>
         <section>
           <div className="account-form-input">
             <label>Prénom :</label>
@@ -215,10 +101,98 @@ const userInformation = (props) => {
   )
 }
 
-const Avatar = (props) => {
+const UserPassword = () => {
+  const [user, setUser] = useState({});
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newPasswordRepeat, setNewPasswordRepeat] = useState("");
+  const [showOldPassword, setShowOldPassword] = useState("password");
+  const [showNewPassword, setShowNewPassword] = useState("password");
+  const [showNewPasswordRepeat, setShowNewPasswordRepeat] = useState("password");
+
+  async function fetchData() {
+    setUser(await Auth.getUser());
+  }
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch(`${process.env.REACT_APP_API_HOST}/user/update/password/${user.uid}` , {
+      method: 'POST',
+      headers: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + Cookies.get('access_token'),
+        'Access-Control-Allow-Origin': "*"        
+      },
+      body: JSON.stringify({
+        'oldpassword': oldPassword,
+        'newpassword': newPassword,
+        'newpasswordrepeat': newPasswordRepeat
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      window.location.reload();
+    })
+  }
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return (
+    <>
+      <h3>Changer de mot de passe</h3>
+      <form className="password-form" onSubmit={handleSubmit}>
+      <section>
+          <div className="password-form-input">
+            <label>Votre ancien mot de passe</label>
+            <input type={showOldPassword} name="old-password" id="old-password" value={oldPassword} onChange={(e) => { setOldPassword(e.target.value) }} placeholder={"Saisissez votre ancien mot de passe"} required/>
+            <div onClick={(e) => {e.preventDefault(); setShowOldPassword(showOldPassword === "text" ? "password" : "text");}}><FontAwesomeIcon icon={showOldPassword === "text" ? faEyeSlash : faEye} /></div>
+          </div>
+        </section>
+        <section>
+          <div className="password-form-input">
+            <label>Votre nouveau mot de passe</label>
+            <input type={showNewPassword} name="new-password" id="new-password" value={newPassword} onChange={(e) => { setNewPassword(e.target.value) }} placeholder={"Votre nouveau mot de passe"} required/>
+            <div onClick={(e) => {e.preventDefault(); setShowNewPassword(showNewPassword === "text" ? "password" : "text");}}><FontAwesomeIcon icon={showNewPassword === "text" ? faEyeSlash : faEye} /></div>
+            <span className={newPassword.length > 0 ? (Password.verify(newPassword) ? "great" : "not-great") : ""}>8 Caractères min, 1 Majuscule, 1 Chiffre, 1 Caractère spécial</span>
+          </div>
+          <div className="password-form-input">
+            <label>Répétez le nouveau mot de passe</label>
+            <input type={showNewPasswordRepeat} name="new-password-repeat" id="new-password-repeat" value={newPasswordRepeat} onChange={(e) => { setNewPasswordRepeat(e.target.value) }} placeholder={"Répétez le nouveau mot de passe"} required/>
+            <div onClick={(e) => {e.preventDefault(); setShowNewPasswordRepeat(showNewPasswordRepeat === "text" ? "password" : "text");}}><FontAwesomeIcon icon={showNewPasswordRepeat === "text" ? faEyeSlash : faEye} /></div>
+            {
+              newPassword.length > 0 ? (
+                newPassword === newPasswordRepeat ?
+                  (<span>Le mot de passe correspond !</span>) : 
+                  (<span>Le mot de passe ne correspond pas !</span>)
+              ) :
+              (<></>)
+            }
+          </div>
+        </section>
+        <section className="submit-password">
+          <input type="submit" value="Mettre à jour le mot de passe" />
+        </section>
+      </form>
+    </>
+  )
+}
+
+const Avatar = () => {
+  const [user, setUser] = useState({});
+  
+  async function fetchData() {
+    setUser(await Auth.getUser());
+  }
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleClick = (id) => {
-    fetch(`${process.env.REACT_APP_API_HOST}/user/update/avatar/${props.uid}`, {
+    fetch(`${process.env.REACT_APP_API_HOST}/user/update/avatar/${user.uid}`, {
       method: 'POST',
       headers: {
         'Accept': '*/*',
