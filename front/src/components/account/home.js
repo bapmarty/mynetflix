@@ -9,17 +9,11 @@ import AccountNavbar from '../layouts/account.navbar';
 import Auth from '../helpers/auth';
 import Password from '../helpers/password';
 
-import "../assets/scss/components/account.home.scss";
-import Avatar from '../layouts/account.avatar';
+import "../../assets/scss/components/account.home.scss";
 
 const Account = () => {
   const history = useHistory();
   const [user, setUser] = useState({});
-
-  const [readOnlyFisrtname, setreadOnlyFisrtname] = useState(true);
-  const [readOnlyLastname, setreadOnlyLastname] = useState(true);
-  const [readOnlyMail, setreadOnlyMail] = useState(true);
-  const [readOnlyPhone, setreadOnlyPhone] = useState(true);
 
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -111,36 +105,7 @@ const Account = () => {
       <AccountNavbar />
       <div className="account-container">
         <div className="account-block">
-          <h3>Informations du compte</h3>
-          <form className="account-form" onSubmit={handleSubmitInformation}>
-            <section>
-              <div className="account-form-input">
-                <label>Prénom :</label>
-                <input type="text" name="firstname" id="firstname" onChange={(e) => { setUser({...user, firstname: e.target.value})}} value={user.firstname ? user.firstname : ""} placeholder={user.firstname ? user.firstname : "Votre prénom"} readOnly={readOnlyFisrtname} />
-                <button onClick={(e) => {e.preventDefault(); setreadOnlyFisrtname(readOnlyFisrtname ? false : true)}}><FontAwesomeIcon icon={faPen} /></button>
-              </div>
-              <div className="account-form-input">
-                <label>Nom :</label> 
-                <input type="text" name="lastname" id="lastname" onChange={(e) => { setUser({...user, lastname: e.target.value})}} value={user.lastname ? user.lastname : ""} placeholder={user.lastname ? user.lastname : "Votre nom"} readOnly={readOnlyLastname}/>
-                <button onClick={(e) => {e.preventDefault(); setreadOnlyLastname(readOnlyLastname ? false : true)}}><FontAwesomeIcon icon={faPen} /></button>
-              </div>
-            </section>
-            <section>
-              <div className="account-form-input">
-                <label>Mail :</label> 
-                <input type="text" name="mail" id="mail" onChange={(e) => { setUser({...user, mail: e.target.value})}} value={user.mail ? user.mail : ""} placeholder={user.mail ? user.mail : "Votre mail"} readOnly={readOnlyMail} />
-                <button onClick={(e) => {e.preventDefault(); setreadOnlyMail(readOnlyMail ? false : true)}}><FontAwesomeIcon icon={faPen} /></button>
-              </div>
-              <div className="account-form-input">
-                <label>téléphone :</label> 
-                <input type="text" name="phone" id="phone" onChange={(e) => { setUser({...user, phone_number: e.target.value})}} value={user.phone_number ? user.phone_number : ""} placeholder={user.phone_number ? user.phone_number : "Votre numéro de téléphone"} readOnly={readOnlyPhone}/>
-                <button onClick={(e) => {e.preventDefault(); setreadOnlyPhone(readOnlyPhone ? false : true)}}><FontAwesomeIcon icon={faPen} /></button>
-              </div>
-            </section>
-            <section className="submit-profil">
-              <input className="submit-profil" type="submit" value="Mettre à jour mon profil" />
-            </section>
-          </form>
+        
         </div>
         <Avatar uid={user.uid} activeAvatar={user.avatar} />
         <div className="account-block">
@@ -178,6 +143,119 @@ const Account = () => {
               <input type="submit" value="Mettre à jour le mot de passe" />
             </section>
           </form>
+        </div>
+      </div>
+    </>
+  );
+}
+
+const userInformation = (props) => {
+
+  const [readOnlyFisrtname, setreadOnlyFisrtname] = useState(true);
+  const [readOnlyLastname, setreadOnlyLastname] = useState(true);
+  const [readOnlyMail, setreadOnlyMail] = useState(true);
+  const [readOnlyPhone, setreadOnlyPhone] = useState(true);
+
+  async function fetchData() {
+    const cookie_uid = Cookies.get("uid");
+    const cookie_token = Cookies.get("access_token");
+    if (cookie_uid && cookie_token) {
+      var res = await fetch(`${process.env.REACT_APP_API_HOST}/user/${cookie_uid}`, {
+        method: 'GET',
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + Cookies.get('access_token'),
+          'Access-Control-Allow-Origin': "*"
+        }
+      });
+      const data = await res.json();
+      if (data.error) {
+        Auth.signOut();
+        Cookies.set("logout", "revoke_access", {expires: new Date(new Date().getTime() + 10 * 1000)});
+        history.push("/login");
+      }
+      setUser(data);
+    }
+  }
+
+  return (
+    <>
+      <h3>Informations du compte</h3>
+      <form className="account-form" onSubmit={handleSubmit()}>
+        <section>
+          <div className="account-form-input">
+            <label>Prénom :</label>
+            <input type="text" name="firstname" id="firstname" onChange={(e) => { setUser({...user, firstname: e.target.value})}} value={user.firstname ? user.firstname : ""} placeholder={user.firstname ? user.firstname : "Votre prénom"} readOnly={readOnlyFisrtname} />
+            <button onClick={(e) => {e.preventDefault(); setreadOnlyFisrtname(readOnlyFisrtname ? false : true)}}><FontAwesomeIcon icon={faPen} /></button>
+          </div>
+          <div className="account-form-input">
+            <label>Nom :</label> 
+            <input type="text" name="lastname" id="lastname" onChange={(e) => { setUser({...user, lastname: e.target.value})}} value={user.lastname ? user.lastname : ""} placeholder={user.lastname ? user.lastname : "Votre nom"} readOnly={readOnlyLastname}/>
+            <button onClick={(e) => {e.preventDefault(); setreadOnlyLastname(readOnlyLastname ? false : true)}}><FontAwesomeIcon icon={faPen} /></button>
+          </div>
+        </section>
+        <section>
+          <div className="account-form-input">
+            <label>Mail :</label> 
+            <input type="text" name="mail" id="mail" onChange={(e) => { setUser({...user, mail: e.target.value})}} value={user.mail ? user.mail : ""} placeholder={user.mail ? user.mail : "Votre mail"} readOnly={readOnlyMail} />
+            <button onClick={(e) => {e.preventDefault(); setreadOnlyMail(readOnlyMail ? false : true)}}><FontAwesomeIcon icon={faPen} /></button>
+          </div>
+          <div className="account-form-input">
+            <label>téléphone :</label> 
+            <input type="text" name="phone" id="phone" onChange={(e) => { setUser({...user, phone_number: e.target.value})}} value={user.phone_number ? user.phone_number : ""} placeholder={user.phone_number ? user.phone_number : "Votre numéro de téléphone"} readOnly={readOnlyPhone}/>
+            <button onClick={(e) => {e.preventDefault(); setreadOnlyPhone(readOnlyPhone ? false : true)}}><FontAwesomeIcon icon={faPen} /></button>
+          </div>
+        </section>
+        <section className="submit-profil">
+          <input className="submit-profil" type="submit" value="Mettre à jour mon profil" />
+        </section>
+      </form>
+    </>
+  )
+}
+
+const Avatar = (props) => {
+
+  const handleClick = (id) => {
+    fetch(`${process.env.REACT_APP_API_HOST}/user/update/avatar/${props.uid}`, {
+      method: 'POST',
+      headers: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + Cookies.get('access_token'),
+        'Access-Control-Allow-Origin': "*"        
+      },
+      body: JSON.stringify({
+        'avatar': id,
+      })
+    })
+    .then(res => res.json());
+    window.location.reload();
+  }
+
+  return (
+    <>
+      <div className="account-block">
+        <h3>Changer d'avatar</h3>
+        <div className="account-avatar">
+          <section className="account-avatar-list">
+            <button onClick={() => {handleClick(1)}}>
+              <img src={process.env.REACT_APP_API_HOST + "/ressources/static/avatars/avatar_1.png"} alt="blue avatar" />
+            </button>
+            <button onClick={() => {handleClick(2)}}>
+              <img src={process.env.REACT_APP_API_HOST + "/ressources/static/avatars/avatar_2.png"} alt="gray avatar" />
+            </button>
+            <button onClick={() => {handleClick(3)}}>
+              <img src={process.env.REACT_APP_API_HOST + "/ressources/static/avatars/avatar_3.png"} alt="green avatar" />
+            </button>
+            <button onClick={() => {handleClick(4)}}>
+              <img src={process.env.REACT_APP_API_HOST + "/ressources/static/avatars/avatar_4.png"} alt="purple avatar" />
+            </button>
+            <button onClick={() => {handleClick(5)}} >
+              <img src={process.env.REACT_APP_API_HOST + "/ressources/static/avatars/avatar_5.png"} alt="red avatar" />
+            </button>
+          </section>
         </div>
       </div>
     </>

@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'js-cookie';
 
-import "../assets/scss/components/login.scss";
+import Logo from '../../assets/images/mynetflix.png';
+import Auth from '../../helpers/auth';
 
-import Logo from '../assets/images/mynetflix.png';
-import Auth from '../helpers/auth';
+import "../../assets/scss/components/login.scss";
+
 
 const NewLineText = (props) => {
   const text = props.text;

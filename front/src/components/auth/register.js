@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import Password from '../helpers/password';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
-import "../assets/scss/components/login.scss";
+import Password from '../../helpers/password';
 
-import Logo from '../assets/images/mynetflix.png';
+import Logo from '../../assets/images/mynetflix.png';
+
+import "../../assets/scss/components/login.scss";
 
 
 const Register = () => {

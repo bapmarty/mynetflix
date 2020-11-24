@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import Cookies from 'js-cookie';
 
-import Content from '../helpers/content';
-import AccountNavbar from "../layouts/account.navbar";
+import Content from '../../helpers/content';
+import AccountNavbar from "../../layouts/account.navbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 

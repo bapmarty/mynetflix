@@ -4,13 +4,13 @@ import Cookies from 'js-cookie';
 
 import Home from "../components/app.home";
 
-import Account from "../components/account.home";
+import Account from "../components/account/home";
 
-import Content from "../components/admin.home";
-import ContentFilm from "../components/admin.content.film";
+import Content from "../components/admin/web.content";
+import ContentFilm from "../components/admin/edit.content.film";
 
-import Login from "../components/auth.login";
-import Register from "../components/auth.register";
+import Login from "../components/auth/login";
+import Register from "../components/auth/register";
 
 import Auth from "../helpers/auth";
 

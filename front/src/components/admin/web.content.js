@@ -1,12 +1,12 @@
-import AccountNavbar from '../layouts/account.navbar';
+import { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleDown, faPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { useState, useEffect } from 'react';
 
-import Content from '../helpers/content';
-import { NavLink } from 'react-router-dom';
+import AccountNavbar from '../../layouts/account.navbar';
+import Content from '../../helpers/content';
 
-import "../assets/scss/components/admin.home.scss";
+import "../../assets/scss/components/admin.home.scss";
 
 const Admin = () => {
   return (
